@@ -5,12 +5,13 @@ import Register from './src/pages/Register';
 import Entry from "./src/pages/apresentation/Entry";
 import MenuPage from './src/pages/menu/MenuPage';
 import MapCar from './src/pages/map/MapCar';
+import VagaSelect from './src/pages/vaga/VagaSelect';
 
 export default function App() {
   return (
     <View style={styles.body}>
       <StatusBar hidden />
-      <MapCar/>
+      <MenuPage/>
     </View>
   );
 }

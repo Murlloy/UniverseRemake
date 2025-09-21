@@ -17,8 +17,8 @@ export default function MapCar() {
 
             <View style={styles.cardList}>
 
-                <View>
-                    <Text>Vagas</Text>
+                <View style={styles.cardHeader}>
+                    <Text style={{color: "white", fontSize: 16, fontWeight: "bold"}}>Vagas</Text>
                     <TouchableOpacity>
                         <Image source={require("../../assets/Up.png")} />
                     </TouchableOpacity>
@@ -78,6 +78,22 @@ const styles = StyleSheet.create({
         gap: 15,
         flexWrap: "wrap",
         justifyContent: "center"
+    },
+
+    cardList: {
+        backgroundColor: "#1B1B1B",
+        height: "100%",
+        marginTop: 50,
+        width: "95%",
+        borderRadius: 8
+    },
+
+    cardHeader: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: 25,
+        paddingBottom: 10
     }
 
 
