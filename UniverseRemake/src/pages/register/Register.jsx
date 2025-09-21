@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, Image } from "react-native";
-import Input from "../components/Input";
-import Button from "../components/Button";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 
 export default function Register() {
 
@@ -8,8 +8,8 @@ export default function Register() {
 
         <View style={styles.body}>
 
-            <Image source={require("../assets/effectRegister.png")} style={styles.efeito} />
-            <Image source={require("../assets/logoUniverse.png")} />
+            <Image source={require("../../assets/effectRegister.png")} style={styles.efeito} />
+            <Image source={require("../../assets/logoUniverse.png")} />
 
             <View style={styles.InputWrapper}>
                 <Input label={"Primeiro Nome"}/>
