@@ -20,7 +20,7 @@ export default function MapCar() {
                 <View style={styles.cardHeader}>
                     <Text style={{color: "white", fontSize: 16, fontWeight: "bold"}}>Vagas</Text>
                     <TouchableOpacity>
-                        <Image source={require("../../assets/Up.png")} />
+                        <Image source={require("../../assets/Close.png")} />
                     </TouchableOpacity>
                 </View>
 
