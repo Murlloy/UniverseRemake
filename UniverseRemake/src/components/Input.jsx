@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
-export default function Input({label}) {
+export default function Input({label, value, onChangeText}) {
 
     return (
 
@@ -9,7 +9,7 @@ export default function Input({label}) {
 
             <Text style={{color: "white", fontWeight: "bold"}}>{label}</Text>
 
-            <TextInput style={styles.input} />
+            <TextInput style={styles.input} value={value} onChangeText={onChangeText} />
 
         </View>
         
@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
         borderColor: "#8A51FC",
         borderWidth: 1,
         borderRadius: 8,
-        paddingLeft: 15
+        paddingLeft: 15,
+        color: "white"
 
     } ,
 

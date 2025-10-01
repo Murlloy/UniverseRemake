@@ -1,8 +1,48 @@
-import { View, Image, StyleSheet, Text} from "react-native";
+import { View, Image, StyleSheet, Text, Alert } from "react-native";
+import { fetchUsers } from "../../../api";
+import React, { useState, useEffect } from "react";
+
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import BtnLogin from "../../components/BtnLogin";
 
-export default function LoginPage() {
+export default function LoginPage({navigation}) {
+
+    
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    const [users, setUsers] = useState([]);
+
+     useEffect(() => {
+    const fetchData = async () => {
+      const data = await getVeiculos();
+      setVeiculos(data);
+    };
+    fetchData();
+  }, []);
+
+  const handleLogin = async () => {
+      console.log("Botão clicado"); // Teste se a função é chamada
+      try {
+          const users = await fetchUsers();
+          const user = users.find(
+          (u) => u.username === username && u.password === password
+          );
+  
+          if (user) {
+          Alert.alert("Sucesso", `Bem-vindo, ${user.username}!`);
+          setUsername("");
+          setPassword("");
+          navigation.navigate("Menu");
+          } else {
+          Alert.alert("Erro", "Usuário ou senha incorretos");
+          }
+      } catch (error) {
+          console.error(error);
+      }
+  };
+
 
     return(
 
@@ -12,13 +52,14 @@ export default function LoginPage() {
             <Image source={require("../../assets/logoUniverse.png")} />
 
             <View style={styles.InputWrapper}>
-                <Input label={"Nome de Usuario"}/>
-                <Input label={"Senha"}/>
+                <Input label={"Nome de Usuario"} value={username} onChangeText={setUsername}/>
+                <Input label={"Senha"} value={password} onChangeText={setPassword} secureTextEntry/>
                 <Text style={{color: "#52A8FF", alignSelf: "flex-end"}}>Esqueceu a senha?</Text>
             </View>
 
-            <Button label={"Entrar"} color={"#8A51FC"}/>
-            <Text style={styles.text}>Não tem uma conta? <Text style={{color: "#52A8FF"}}>Cadastre-se</Text></Text>
+            <BtnLogin label={"Entrar"} color={"#8A51FC"} onPress={handleLogin} />
+
+            <Text style={styles.text}>Não tem uma conta? <Text style={{color: "#52A8FF"}} onPress={() => navigation.navigate('Register')}> Cadastre-se</Text></Text>
 
             <View style={styles.ButtonWrapper}>
                 <Button label={"Entrar com o Google"} color={"black"} img={true} linkImage={require("../../assets/google.png")}/>
@@ -27,7 +68,7 @@ export default function LoginPage() {
 
             <Text style={styles.text}>ou</Text>
 
-            <Text style={{color: "#8A51FC", textDecorationLine: "underline"}}>Continuar como convidado</Text>
+            <Text style={{color: "#8A51FC", textDecorationLine: "underline"}} onPress={() => navigation.navigate('Menu')}>Continuar como convidado</Text>
 
         </View>
 

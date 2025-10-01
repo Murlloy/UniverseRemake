@@ -1,10 +1,10 @@
 import { StyleSheet, TouchableOpacity, Text, Image } from "react-native";
 
-export default function Button({link, label, color, img, linkImage}) {
+export default function Button({link, label, color, img, linkImage, navigation}) {
 
     return (
 
-        <TouchableOpacity style={ [styles.button, {backgroundColor: color} ] } >    
+        <TouchableOpacity style={ [styles.button, {backgroundColor: color} ] } onPress={() => navigation.navigate(link, {userID: 42})}>    
 
             {
                 img ? (

@@ -1,9 +1,8 @@
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import NavBar from "../../components/NavBar";
-import {ButtonMap} from "./styles"
 
 
-export default function MenuPage() {
+export default function MenuPage({navigation}) {
 
     return(
 
@@ -25,7 +24,7 @@ export default function MenuPage() {
 
             {/* mapa das vagas */}
 
-            <ButtonMap> 
+            <TouchableOpacity onPress={() => {navigation.navigate("Mapa")}} style={styles.btnMap}> 
                 <View style={styles.mapCar}>
                     <Image source={require("../../assets/map.png")} />
                     <Text style={{color: "white", fontSize: 16, fontWeight: "bold"}}>Mapa de Vagas</Text>
@@ -36,7 +35,7 @@ export default function MenuPage() {
                     <Image source={require("../../assets/car.png")} />
                     <Image source={require("../../assets/car.png")} />
                 </View>
-            </ButtonMap>
+            </TouchableOpacity>
 
             {/* btn Wrapper */}
 
@@ -44,12 +43,17 @@ export default function MenuPage() {
 
                 <TouchableOpacity style={styles.vaga}>
                     <Image source={require("../../assets/car.png")} />
-                    <Text style={{color: "white", fontSize: 16, fontWeight: "bold"}}>Informações da Vaga</Text>
+                    <Text style={{color: "white", fontSize: 16, fontWeight: "bold"}}
+                        onPress={() => {navigation.navigate("Info")}}
+                    >Informações da Vaga</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.vaga}>
                     <Image source={require("../../assets/grafico.png")} />
-                    <Text style={{color: "white", fontSize: 16, fontWeight: "bold"}}>Informações da Vaga</Text>
+                    <Text style={{color: "white", fontSize: 16, fontWeight: "bold"}}
+                        onPress={() => {navigation.navigate("Info")}}
+                    
+                    >Carros Estacionados</Text>
                 </TouchableOpacity>
 
             </View>
@@ -63,7 +67,7 @@ export default function MenuPage() {
 
             
 
-            <NavBar />
+            <NavBar navigation={navigation}/>
 
         </View>
 
@@ -118,6 +122,14 @@ const styles = StyleSheet.create({
     btnWrapper: {
         gap: 15,
         marginTop: 40
+    },
+
+    btnMap: {
+        backgroundColor: "#1B1B1B",
+        padding: "20",
+        width: "80%",
+        gap: 40,
+        borderRadius: 8
     }
 
 })

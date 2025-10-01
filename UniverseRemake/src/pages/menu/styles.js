@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+
 
 export const ButtonMap = styled.TouchableOpacity `
     background-color: #1B1B1B;

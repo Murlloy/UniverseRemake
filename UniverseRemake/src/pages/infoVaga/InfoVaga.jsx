@@ -1,9 +1,9 @@
-import { StyleSheet, View, Image, Text } from "react-native";
+import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import NavBar from "../../components/NavBar";
 import Button from "../../components/Button";
 
 
-export default function InfoVaga() {
+export default function InfoVaga({navigation, vaga}) {
 
     return(
 
@@ -17,7 +17,9 @@ export default function InfoVaga() {
             </View>
 
             <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between", width: "80%"}}>
-                <Image source={require("../../assets/Up.png")}/>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={{transform: [{scaleX: -1}]}}>
+                    <Image source={require("../../assets/Up.png")}/>
+                </TouchableOpacity>
                 <Text style={{fontSize: 18, color: "#D02D2D"}}>Pagamento Pendente</Text>
             </View>
 
@@ -71,7 +73,7 @@ export default function InfoVaga() {
 
             <Button label={"Pagar"} color={"#8A51FC"} />
 
-            <NavBar/>
+            <NavBar navigation={navigation}/>
 
         </View>
 

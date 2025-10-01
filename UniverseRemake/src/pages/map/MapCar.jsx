@@ -2,7 +2,7 @@ import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native";
 import NavBar from "../../components/NavBar";
 import CardCar from "../../components/CardCar";
 
-export default function MapCar() {
+export default function MapCar({navigation}) {
 
     return(
 
@@ -19,30 +19,30 @@ export default function MapCar() {
 
                 <View style={styles.cardHeader}>
                     <Text style={{color: "white", fontSize: 16, fontWeight: "bold"}}>Vagas</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Image source={require("../../assets/Close.png")} />
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.lista}>
 
-                    <CardCar ativo={true} vaga={"A1"}/>
-                    <CardCar vaga={"A2"}/>
-                    <CardCar ativo={true} vaga={"A3"}/>
-                    <CardCar ativo={true}  vaga={"A4"}/>
-                    <CardCar ativo={true} vaga={"A5"}/>
-                    <CardCar vaga={"A6"}/>
-                    <CardCar ativo={true} vaga={"A7"}/>
-                    <CardCar ativo={true}  vaga={"A8"}/>
-                    <CardCar ativo={true} vaga={"A9"}/>
-                    <CardCar vaga={"A10"}/>
+                    <CardCar ativo={true} vaga={"A1"} navigation={navigation}/>
+                    <CardCar vaga={"A2"} navigation={navigation}/>
+                    <CardCar ativo={true} vaga={"A3"} navigation={navigation}/>
+                    <CardCar ativo={true}  vaga={"A4"} navigation={navigation}/>
+                    <CardCar ativo={true} vaga={"A5"} navigation={navigation}/>
+                    <CardCar vaga={"A6"} navigation={navigation}/>
+                    <CardCar ativo={true} vaga={"A7" } navigation={navigation}/>
+                    <CardCar ativo={true}  vaga={"A8"} navigation={navigation}/>
+                    <CardCar ativo={true} vaga={"A9"} navigation={navigation}/>
+                    <CardCar vaga={"A10"} navigation={navigation}/>
 
                 </View>
                 
 
             </View>
 
-            <NavBar />
+            <NavBar navigation={navigation}/>
 
         </View>
 

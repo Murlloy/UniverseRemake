@@ -1,11 +1,36 @@
-import { Text, TouchableOpacity, Image, StyleSheet, View } from "react-native";
+import { Text, TouchableOpacity, Image, StyleSheet, View, Alert } from "react-native";
 
 
-export default function CardCar({vaga, ativo}) {
+export default function CardCar({vaga, ativo, navigation}) {
+
+    const showAlert = () => {
+    Alert.alert(
+      "Título do Alerta",          // título
+      "Mensagem do alerta",        // mensagem
+      [
+        { text: "Cancelar", style: "cancel" },
+        { text: "OK", onPress: () => console.log("OK Pressionado") }
+      ],
+      { cancelable: true }         // permite fechar tocando fora
+    );
+  };
 
     return(
+        
 
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity style={styles.card} 
+            
+                onPress={() => {
+
+                    if(ativo) {
+                        navigation.navigate("VagaSelect", {vaga})
+                    }else {
+                        Alert.alert("Vaga " + vaga + " já Cadastrado... ")
+                    }
+
+                }}
+            >
+            
             <Image source={require("../assets/car.png")} style={{width: 70, height: 50}}/>
 
             <View style={styles.infoCar}>
