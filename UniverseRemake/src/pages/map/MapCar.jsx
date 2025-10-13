@@ -66,9 +66,11 @@ export default function MapCar({ navigation }) {
             keyExtractor={(item) => String(item.id)}
             numColumns={4}
             columnWrapperStyle={{ justifyContent: "center", gap: 15, marginBottom: 15, flexWrap: 'wrap' }}
+
             renderItem={({ item }) => (
               <CardCar ativo={item.ocupado} vaga={item.vaga} navigation={navigation} />
             )}
+            
             ListEmptyComponent={!loading ? <Text style={{ color: "white" }}>Nenhuma vaga encontrada.</Text> : null}
             refreshing={refreshing}
             onRefresh={onRefresh}
