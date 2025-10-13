@@ -22,7 +22,7 @@ export default function CardCar({vaga, ativo, navigation}) {
             
                 onPress={() => {
 
-                    if(ativo) {
+                    if(!ativo) {
                         navigation.navigate("VagaSelect", {vaga})
                     }else {
                         Alert.alert("Vaga " + vaga + " já Cadastrado... ")
@@ -38,7 +38,7 @@ export default function CardCar({vaga, ativo, navigation}) {
                 <Text style={{color: "white", fontWeight: "bold"}}>VAGA {vaga}</Text>
 
                 {
-                    ativo ? (
+                    !ativo ? (
                         <Text style={styles.ativo}>Liberado</Text>
                     ): (
                         <Text style={styles.desativado}>Ocupado</Text>

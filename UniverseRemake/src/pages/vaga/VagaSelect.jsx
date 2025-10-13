@@ -2,7 +2,7 @@ import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import Input from "../../components/Input";
 import BtnLogin from "../../components/BtnLogin";
 import { useState } from "react";
-import { CadasterVeiculo, RegisterVeiculo } from "../../../api"
+import { CadasterVeiculo, RegisterVeiculo, SaidaVeiculo } from "../../../api"
 
 export default function VagaSelect({navigation, route}) {
 
@@ -36,6 +36,11 @@ export default function VagaSelect({navigation, route}) {
             }
         };
 
+    const teste = async () => {
+        SaidaVeiculo(placa)
+        setPlaca("")
+    }
+
     return(
 
         <View style={styles.body}>
@@ -48,14 +53,14 @@ export default function VagaSelect({navigation, route}) {
             <Image source={require("../../assets/carSolo.png")} />
 
             <View style={styles.inputWrapper}>
-                <Input label={"Nome do Usuario"}/>
-                <Input label={"Placa do Veiculo"}/>
-                <Input label={"Tipo de Veiculo"}/>
-                <Input label={"Modelo do Carro"}/>
+                {/* <Input label={"Nome do Usuario"}/> */}
+                <Input label={"Placa do Veiculo"} value={placa} onChangeText={setPlaca}/>
+                <Input label={"Veiculo"}/>
+                {/* <Input label={"Modelo do Carro"}/> */}
                 <Input label={"Estado"}/>
             </View>
 
-            <BtnLogin color={"#8A51FC"} label={"Adicionar Veiculo"} style={styles.button} onPress={handleRegister}/>
+            <BtnLogin color={"#8A51FC"} label={"Adicionar Veiculo"} style={styles.button} onPress={teste}/>
 
 
         </View>
@@ -85,6 +90,8 @@ const styles = StyleSheet.create({
         position: "absolute",
         left: 25,
         transform: [{scaleX: -1}]
-    }
+    },
+
+    
 
 })

@@ -1,7 +1,7 @@
 import { Alert } from "react-native";
 
 const API_URL = "https://68d74a9bc2a1754b426d0028.mockapi.io/estacionamento/api/usuarios";
-const API_URL_VEICULOS = "https://68d74a9bc2a1754b426d0028.mockapi.io/estacionamento/api/veiculos";
+const API_URL_VAGAS = "https://68d74a9bc2a1754b426d0028.mockapi.io/estacionamento/api/vagas";
 
 export const showAlert = () => {
     Alert.alert(
@@ -15,7 +15,7 @@ export const showAlert = () => {
     );
   };
 
-export const getUsuarios = async () => {
+export const fetchUsers = async () => {
   try {
     const response = await fetch(API_URL);
     const data = await response.json();
@@ -26,31 +26,31 @@ export const getUsuarios = async () => {
   }
 };
 
+export const getVagas = async () => {
 
-
-export const fetchUsers = async () => {
   try {
-    const response = await fetch(
-      "https://68d74a9bc2a1754b426d0028.mockapi.io/estacionamento/api/usuarios"
-    );
+
+    const response = await fetch(API_URL_VAGAS);
     const data = await response.json();
-    return data; // Retorna um array de usuários
-  } catch (error) {
-    console.error("Erro ao buscar usuários:", error);
-    return [];
+    return data;
+
+  }catch (error){
+    console.error(error)
+    return []
   }
-};
+
+}
 
 
 
 // Cadastro de usuario
-export const registerUser = async (fullName, email, phone, username, password) => {
-  console.log("Tentando cadastrar:", { fullName, email, phone, username, password }); // ✅
+export const registerUser = async (full_name, email, phone, username, password) => {
+  console.log("Tentando cadastrar:", { full_name, email, phone, username, password }); // ✅
   try {
     const response = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ fullName, email, phone, username, password }),
+      body: JSON.stringify({ full_name, email, phone, username, password }),
     });
 
     console.log("Status da resposta:", response.status); // ✅
@@ -64,24 +64,61 @@ export const registerUser = async (fullName, email, phone, username, password) =
 };
 
 //Cadastro de veiculo
-export const RegisterVeiculo = async (username, placa, tipo, modelo, estado) => {
+export const RegisterVeiculo = async (username, placa, modelo, estado, vaga) => {
 
   console.log("Cadastrando veiculo")
 
   try {
-    const response = await fetch(API_URL_VEICULOS, {
-      method: "POST",
+
+    const vagas = getVagas()
+
+
+    const response = await fetch(API_URL_VAGAS, {
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ vaga, lote,  dt_entrada, dt_saida, modelo, placa, username, estado  }),
+      body: JSON.stringify({ vaga,  dt_entrada, dt_saida, modelo, placa, username, estado  }),
     });
 
-    console.log("Status da resposta:", response.status); // ✅
+    
     const data = await response.json();
-    console.log("Resposta da API:", data); // ✅
     return data;
   } catch (error) {
     console.error("Erro ao cadastrar:", error);
     return null;
+  }
+
+}
+
+
+// funfando
+export const SaidaVeiculo = async (placa) => {
+
+  try {
+
+    const veiculos = await getVagas()
+    const veiculo = veiculos.find( (v) => v.placa == placa)
+
+    if(veiculo) {
+
+       const response = await fetch(API_URL_VAGAS + `/${veiculo.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        }
+        
+
+       })
+       Alert.alert("Sucesso!", "Veiculo Retirado com sucesso")
+
+    }else {
+      Alert.alert("Erro", "Placa não encontrada")
+    }
+
+
+  }catch (error) {
+
+    console.error("Erro ao Deletar do banco, erro: " + error)
+
   }
 
 }

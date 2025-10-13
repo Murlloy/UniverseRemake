@@ -32,6 +32,10 @@ export default function LoginPage({navigation}) {
   
           if (user) {
           Alert.alert("Sucesso", `Bem-vindo, ${user.username}!`);
+
+          // preciso armazenar o usuario logado em algum canto;
+          // de preferencia aqui
+
           setUsername("");
           setPassword("");
           navigation.navigate("Menu");

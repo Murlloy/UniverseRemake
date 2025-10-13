@@ -1,5 +1,5 @@
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator  } from 'react-native';
 import React, { useEffect } from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -44,6 +44,7 @@ export default function App() {
         <Stack.Screen name="Info" component={InfoVaga} />
       </Stack.Navigator>
     </NavigationContainer>
+    
   );
 }
 
