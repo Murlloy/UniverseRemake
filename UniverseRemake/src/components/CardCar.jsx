@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity, Image, StyleSheet, View, Alert } from "react-native";
 
 
-export default function CardCar({vaga, ativo, navigation}) {
+export default function CardCar({vaga, ativo, navigation, onPress}) {
 
     const showAlert = () => {
     Alert.alert(
@@ -18,24 +18,13 @@ export default function CardCar({vaga, ativo, navigation}) {
     return(
         
 
-        <TouchableOpacity style={styles.card} 
-            
-                onPress={() => {
-
-                    if(!ativo) {
-                        navigation.navigate("VagaSelect", {vaga})
-                    }else {
-                        Alert.alert("Vaga " + vaga + " já Cadastrado... ")
-                    }
-
-                }}
-            >
+        <TouchableOpacity style={styles.card} onPress={onPress}>
             
             <Image source={require("../assets/car.png")} style={{width: 70, height: 50}}/>
 
             <View style={styles.infoCar}>
 
-                <Text style={{color: "white", fontWeight: "bold"}}>VAGA {vaga}</Text>
+                <Text style={{color: "white", fontWeight: "bold"}}>{vaga}</Text>
 
                 {
                     !ativo ? (

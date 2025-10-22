@@ -13,6 +13,7 @@ import Entry from "./src/pages/apresentation/Entry";
 import MenuPage from './src/pages/menu/MenuPage';
 import MapCar from './src/pages/map/MapCar';
 import VagaSelect from './src/pages/vaga/VagaSelect';
+import Exit from './src/pages/exit/Exit';
 import InfoVaga from './src/pages/infoVaga/InfoVaga';
 
 const Stack = createNativeStackNavigator();
@@ -42,6 +43,7 @@ export default function App() {
         <Stack.Screen name="Mapa" component={MapCar} />
         <Stack.Screen name="VagaSelect" component={VagaSelect} />
         <Stack.Screen name="Info" component={InfoVaga} />
+        <Stack.Screen name="Exit" component={Exit} />
       </Stack.Navigator>
     </NavigationContainer>
     

@@ -3,25 +3,20 @@ import Input from "../../components/Input";
 import BtnLogin from "../../components/BtnLogin";
 import { useState } from "react";
 import { CadasterVeiculo, RegisterVeiculo, SaidaVeiculo } from "../../../api"
+import { Alert } from "react-native";
 
 export default function VagaSelect({navigation, route}) {
 
+    const { vaga } = route.params;
 
     const [username, setUsername] = useState("")
     const [placa, setPlaca] = useState("")
-    const [tipo, setTIpo] = useState("")
-    const [modelo, setModelo] = useState("")
-    const [estado, setEstado] = useState("")
-
-    let lote = "A", dt_entrada = "25-09-2022-7:00", dt_saida = "25-09-2022-7:00"
     
-    const { vaga } = route.params;
     
     const handleRegister = async () => {
             console.log("handleRegister iniciado");
-
     
-            const user = await RegisterVeiculo( vaga, modelo, placa, username, estado, dt_entrada, lote  );
+            const user = await RegisterVeiculo( vaga, modelo, placa, username, estado  );
             console.log("user retornado:", user);
     
             if (user) {
@@ -37,8 +32,16 @@ export default function VagaSelect({navigation, route}) {
             }
         };
 
-    const teste = async () => {
-        SaidaVeiculo(placa)
+    const handleSaida = async () => {
+
+        if(!username || !placa) {
+
+            Alert.alert("Aviso", "Preencha todos os campos")
+            return;
+
+        }
+
+        SaidaVeiculo(placa, username)
         setPlaca("")
     }
 
@@ -50,18 +53,15 @@ export default function VagaSelect({navigation, route}) {
                 <Image source={require("../../assets/Up.png")}/>
             </TouchableOpacity>
 
-            <Text style={{color: "white", fontSize: 29, fontWeight: "bold"}}>{vaga}</Text>
+            <Text style={{color: "white", fontSize: 29, fontWeight: "bold"}}> Saida Vaga {vaga}</Text>
             <Image source={require("../../assets/carSolo.png")} />
 
             <View style={styles.inputWrapper}>
-                {/* <Input label={"Nome do Usuario"}/> */}
-                <Input label={"Placa do Veiculo"} value={placa} onChangeText={setPlaca}/>
-                <Input label={"Veiculo"}/>
-                {/* <Input label={"Modelo do Carro"}/> */}
-                <Input label={"Estado"}/>
+                <Input label={"Username do Dono"} value={username} onChangeText={setUsername}/>
+                <Input label={"Confirme a Placa"} value={placa} onChangeText={setPlaca}/>
             </View>
 
-            <BtnLogin color={"#8A51FC"} label={"Adicionar Veiculo"} style={styles.button} onPress={handleRegister}/>
+            <BtnLogin color={"#8A51FC"} label={"Retirar Veiculo"} style={styles.button} onPress={handleSaida}/>
 
 
         </View>

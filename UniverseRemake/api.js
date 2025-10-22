@@ -4,16 +4,16 @@ const API_URL = "https://68d74a9bc2a1754b426d0028.mockapi.io/estacionamento/api/
 const API_URL_VAGAS = "https://68d74a9bc2a1754b426d0028.mockapi.io/estacionamento/api/vagas";
 
 export const showAlert = () => {
-    Alert.alert(
-      "Título do Alerta",          // título
-      "Mensagem do alerta",        // mensagem
-      [
-        { text: "Cancelar", style: "cancel" },
-        { text: "OK", onPress: () => console.log("OK Pressionado") }
-      ],
-      { cancelable: true }         // permite fechar tocando fora
-    );
-  };
+  Alert.alert(
+    "Título do Alerta",          // título
+    "Mensagem do alerta",        // mensagem
+    [
+      { text: "Cancelar", style: "cancel" },
+      { text: "OK", onPress: () => console.log("OK Pressionado") }
+    ],
+    { cancelable: true }         // permite fechar tocando fora
+  );
+};
 
 export const fetchUsers = async () => {
   try {
@@ -32,9 +32,14 @@ export const getVagas = async () => {
 
     const response = await fetch(API_URL_VAGAS);
     const data = await response.json();
+
+    console.log(data)
+
     return data;
 
-  }catch (error){
+
+
+  } catch (error) {
     console.error(error)
     return []
   }
@@ -63,62 +68,90 @@ export const registerUser = async (full_name, email, phone, username, password) 
   }
 };
 
-//Cadastro de veiculo
-export const RegisterVeiculo = async (username, placa, modelo, estado, vaga) => {
-
-  console.log("Cadastrando veiculo")
-
+// Cadastro de veículo / ocupar vaga
+export const RegisterVeiculo = async (vagaNumero, modelo, placa, username, estado, dt_entrada, lote) => {
   try {
+    console.log("Registrando veículo na vaga:", vagaNumero);
 
-    const vagas = getVagas()
+    // Buscar vagas
+    const vagas = await getVagas();
 
+    // Encontrar a vaga correta
+    const vagaEncontrada = vagas.find((v) => v.vaga == vagaNumero);
 
-    const response = await fetch(API_URL_VAGAS, {
-      method: "PUT",
+    if (!vagaEncontrada) {
+      console.error("Vaga não encontrada!");
+      return null;
+    }
+
+    // Atualiza a vaga com os dados do veículo
+    const response = await fetch(`${API_URL_VAGAS}/${vagaEncontrada.id}`, {
+      method: "PATCH", // PATCH só atualiza campos sem apagar os outros
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ vaga,  dt_entrada, dt_saida, modelo, placa, username, estado  }),
+      body: JSON.stringify({
+        ocupado: true,
+        modelo,
+        placa,
+        dono: username,
+        estado,
+        vaga: vagaNumero,
+        lote,
+        dt_entrada
+      }),
     });
 
-    
+    if (!response.ok) {
+      console.error("Erro ao atualizar vaga:", response.status);
+      return null;
+    }
+
     const data = await response.json();
+    console.log("Vaga atualizada com sucesso:", data);
     return data;
+
   } catch (error) {
-    console.error("Erro ao cadastrar:", error);
+    console.error("Erro ao cadastrar veículo:", error);
     return null;
   }
+};
 
-}
 
 
 // funfando
-export const SaidaVeiculo = async (placa) => {
+export const SaidaVeiculo = async (placa, username) => {
 
   try {
 
     const veiculos = await getVagas()
-    const veiculo = veiculos.find( (v) => v.placa == placa)
+    const veiculo = veiculos.find((v) => v.placa == placa && v.dono == username)
 
-    if(veiculo) {
+    if (veiculo) {
 
-       const response = await fetch(API_URL_VAGAS + `/${veiculo.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        }
-        
+      const response = await fetch(`${API_URL_VAGAS}/${veiculo.id}`, {
+        method: "PATCH", // PATCH só atualiza campos sem apagar os outros
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ocupado: false,
+          modelo: "",
+          placa: "",
+          dono: "",
+          estado: "",
+          vaga: veiculo.vaga,
+        }),
+      });
 
-       })
-       Alert.alert("Sucesso!", "Veiculo Retirado com sucesso")
+    Alert.alert("Sucesso!", "Veiculo Retirado com sucesso")
 
-    }else {
-      Alert.alert("Erro", "Placa não encontrada")
-    }
+  }else {
 
-
-  }catch (error) {
-
-    console.error("Erro ao Deletar do banco, erro: " + error)
-
+    Alert.alert("Erro", "Placa não encontrada")
   }
+
+
+}catch (error) {
+
+  console.error("Erro ao Deletar do banco, erro: " + error)
+
+}
 
 }
