@@ -41,10 +41,9 @@ export default function MenuPage({navigation}) {
 
             <View style={styles.btnWrapper}>
 
-                <TouchableOpacity style={styles.vaga}>
+                <TouchableOpacity style={styles.vaga}  onPress={() => {navigation.navigate("Info")}}>
                     <Image source={require("../../assets/car.png")} />
                     <Text style={{color: "white", fontSize: 16, fontWeight: "bold"}}
-                        onPress={() => {navigation.navigate("Info")}}
                     >Informações da Vaga</Text>
                 </TouchableOpacity>
 

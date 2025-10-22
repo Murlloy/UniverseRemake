@@ -3,6 +3,7 @@ import Input from "../../components/Input";
 import BtnLogin from "../../components/BtnLogin";
 import { useState } from "react";
 import { CadasterVeiculo, RegisterVeiculo, SaidaVeiculo } from "../../../api"
+import { Alert } from "react-native";
 
 export default function VagaSelect({navigation, route}) {
 
@@ -19,6 +20,14 @@ export default function VagaSelect({navigation, route}) {
     
     const handleRegister = async () => {
             console.log("handleRegister iniciado");
+
+            if(!placa || !estado || !modelo) {
+
+                Alert.alert("Erro", "Preencha todos os Campos!!")
+                return
+
+
+            }
 
     
             const user = await RegisterVeiculo( vaga, modelo, placa, username, estado, dt_entrada, lote  );
@@ -56,9 +65,9 @@ export default function VagaSelect({navigation, route}) {
             <View style={styles.inputWrapper}>
                 {/* <Input label={"Nome do Usuario"}/> */}
                 <Input label={"Placa do Veiculo"} value={placa} onChangeText={setPlaca}/>
-                <Input label={"Veiculo"}/>
+                <Input label={"Veiculo"} value={modelo} onChangeText={setModelo}/>
                 {/* <Input label={"Modelo do Carro"}/> */}
-                <Input label={"Estado"}/>
+                <Input label={"Estado"} value={estado} onChangeText={setEstado}/>
             </View>
 
             <BtnLogin color={"#8A51FC"} label={"Adicionar Veiculo"} style={styles.button} onPress={handleRegister}/>

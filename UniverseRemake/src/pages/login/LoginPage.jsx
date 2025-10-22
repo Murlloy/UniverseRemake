@@ -25,6 +25,12 @@ export default function LoginPage({navigation}) {
   const handleLogin = async () => {
       console.log("Botão clicado"); // Teste se a função é chamada
       try {
+
+        if(!username || !password) {
+            Alert.alert("Aviso", "Preencha todos os Campos!!")
+            return
+        }
+
           const users = await fetchUsers();
           const user = users.find(
           (u) => u.username === username && u.password === password

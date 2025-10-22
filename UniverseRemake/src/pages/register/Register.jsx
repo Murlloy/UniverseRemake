@@ -20,6 +20,14 @@ export default function Register({navigation}) {
     let fullName = firstName + " " + lastName
 
     const handleRegister = async () => {
+
+        if(!firstName || !lastName || !email || !phone || !username || !password){
+
+            Alert.alert("Aviso", "Preencha todos os Campos!!")
+            return
+
+        }
+
         console.log("handleRegister iniciado");
         console.log("Dados:", { firstName, lastName, email, phone, username, password });
 

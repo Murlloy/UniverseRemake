@@ -9,39 +9,18 @@ export default function VagaSelect({navigation, route}) {
 
     const { vaga } = route.params;
 
-    const [username, setUsername] = useState("")
     const [placa, setPlaca] = useState("")
-    
-    
-    const handleRegister = async () => {
-            console.log("handleRegister iniciado");
-    
-            const user = await RegisterVeiculo( vaga, modelo, placa, username, estado  );
-            console.log("user retornado:", user);
-    
-            if (user) {
-                Alert.alert("Sucesso", `Veiculo cadastrado!`);
-                setUsername("");
-                setPlaca("");
-                setTIpo("");
-                setModelo("");
-                setEstado("");
-                navigation.navigate("Menu")
-            } else {
-                Alert.alert("Erro", "Não foi possível cadastrar");
-            }
-        };
 
     const handleSaida = async () => {
 
-        if(!username || !placa) {
+        if( !placa) {
 
             Alert.alert("Aviso", "Preencha todos os campos")
             return;
 
         }
 
-        SaidaVeiculo(placa, username)
+        SaidaVeiculo(placa, vaga)
         setPlaca("")
     }
 
@@ -53,11 +32,11 @@ export default function VagaSelect({navigation, route}) {
                 <Image source={require("../../assets/Up.png")}/>
             </TouchableOpacity>
 
-            <Text style={{color: "white", fontSize: 29, fontWeight: "bold"}}> Saida Vaga {vaga}</Text>
+            <Text style={{color: "white", fontSize: 29, fontWeight: "bold"}}> Saida {vaga}</Text>
             <Image source={require("../../assets/carSolo.png")} />
 
             <View style={styles.inputWrapper}>
-                <Input label={"Username do Dono"} value={username} onChangeText={setUsername}/>
+                {/* <Input label={"Username do Dono"} value={username} onChangeText={setUsername}/> */}
                 <Input label={"Confirme a Placa"} value={placa} onChangeText={setPlaca}/>
             </View>
 

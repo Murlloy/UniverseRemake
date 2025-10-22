@@ -77,7 +77,7 @@ export const RegisterVeiculo = async (vagaNumero, modelo, placa, username, estad
     const vagas = await getVagas();
 
     // Encontrar a vaga correta
-    const vagaEncontrada = vagas.find((v) => v.vaga == vagaNumero);
+    const vagaEncontrada = vagas.find((v) => v.vaga == vagaNumero );
 
     if (!vagaEncontrada) {
       console.error("Vaga não encontrada!");
@@ -118,12 +118,12 @@ export const RegisterVeiculo = async (vagaNumero, modelo, placa, username, estad
 
 
 // funfando
-export const SaidaVeiculo = async (placa, username) => {
+export const SaidaVeiculo = async (placa, vagaNumero) => {
 
   try {
 
     const veiculos = await getVagas()
-    const veiculo = veiculos.find((v) => v.placa == placa && v.dono == username)
+    const veiculo = veiculos.find((v) => v.placa == placa && v.vaga == vagaNumero)
 
     if (veiculo) {
 
