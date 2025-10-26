@@ -30,15 +30,15 @@ cd UniverseRemake
 npm install
 ```
 
-### 3. Rodar o Projeto
+## 3. Rodar o Projeto
 
-# Para Android
+### Para Android
 
 ```bash
 npx react-native run-android
 ```
 
-# Para IOS
+### Para IOS
 
 ```bash
 npx react-native run-ios
